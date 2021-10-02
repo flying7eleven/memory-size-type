@@ -6,7 +6,6 @@ edition = "2018"
 description = "A data type for dealing with memory sizes"
 documentation = "https://docs.rs/memory-size-type"
 license = "MIT"
-license-file = "LICENSE.md"
 readme = "README.md"
 repository = "https://github.com/flying7eleven/memory-size-type"
 keywords = ["memory", "size", "datatype", "type"]
