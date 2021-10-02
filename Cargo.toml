@@ -3,4 +3,6 @@ name = "memory-size-type"
 version = "0.0.0"
 edition = "2018"
 
-[dependencies]
+[dependencies.num-integer]
+version = "0.1.44"
+default-features = false
