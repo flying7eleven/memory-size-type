@@ -9,7 +9,7 @@ license = "MIT"
 license-file = "LICENSE.md"
 readme = "README.md"
 repository = "https://github.com/flying7eleven/memory-size-type"
-keywords = ["memory", "size", "data type", "type"]
+keywords = ["memory", "size", "datatype", "type"]
 categories = ["value-formatting", "rust-patterns"]
 exclude = [".github/", ".gitignore"]
 
