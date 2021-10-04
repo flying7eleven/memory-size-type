@@ -7,13 +7,13 @@ pub struct MemorySize {
 
 impl MemorySize {
     ///The number of bytes in a kilobyte.
-    pub const BYTES_PER_KILOBYTE: u64 = 1024;
+    const BYTES_PER_KILOBYTE: u64 = 1024;
 
     ///The number of bytes in a megabyte.
-    pub const BYTES_PER_MEGABYTE: u64 = MemorySize::BYTES_PER_KILOBYTE * 1024;
+    const BYTES_PER_MEGABYTE: u64 = MemorySize::BYTES_PER_KILOBYTE * 1024;
 
     ///The number of bytes in a gigabyte.
-    pub const BYTES_PER_GIGABYTE: u64 = MemorySize::BYTES_PER_MEGABYTE * 1024;
+    const BYTES_PER_GIGABYTE: u64 = MemorySize::BYTES_PER_MEGABYTE * 1024;
 
     /// Creates a new `MemorySize` from the specified number of whole bytes.
     ///
