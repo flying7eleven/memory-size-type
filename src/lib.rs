@@ -169,3 +169,37 @@ impl MemorySize {
         self.size.div_floor(&MemorySize::BYTES_PER_GIGABYTE)
     }
 }
+
+/// The implementation for the `std::fmt::Display` trait which prints out the `MemorySize` as an
+/// human-readable text in bytes.
+///
+/// # Example
+///
+/// ```
+/// use memory_size_type::MemorySize;
+///
+/// let size = MemorySize::new(13958643712);
+/// assert_eq!(format!("{:?}", size), "13958643712 bytes");
+/// ```
+impl std::fmt::Display for MemorySize {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{} bytes", self.size) // TODO: should be replaced by a method which use the most useful size unit
+    }
+}
+
+/// The implementation for the `std::fmt::Debug` trait which prints out the `MemorySize` as an
+/// human-readable text in bytes.
+///
+/// # Example
+///
+/// ```
+/// use memory_size_type::MemorySize;
+///
+/// let size = MemorySize::new(13958643712);
+/// assert_eq!(format!("{:?}", size), "13958643712 bytes");
+/// ```
+impl std::fmt::Debug for MemorySize {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{} bytes", self.size)
+    }
+}
