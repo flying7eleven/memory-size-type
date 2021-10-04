@@ -1,3 +1,6 @@
+//! A data type for dealing with memory sizes
+#![doc(html_root_url = "https://docs.rs/memory-size-type/latest")]
+
 pub struct MemorySize {
     size: u64,
 }
