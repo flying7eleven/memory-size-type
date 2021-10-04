@@ -9,7 +9,7 @@ license = "MIT"
 readme = "README.md"
 repository = "https://github.com/flying7eleven/memory-size-type"
 keywords = ["memory", "size", "datatype", "type"]
-categories = ["value-formatting", "rust-patterns"]
+categories = ["value-formatting", "rust-patterns", "data-structures"]
 exclude = [".github/", ".gitignore"]
 
 [badges]
