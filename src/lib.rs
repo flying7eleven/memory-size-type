@@ -1,4 +1,6 @@
-//! A data type for dealing with memory sizes
+//! # Memory Size Type
+//!
+//! This crate implements a data type (`MemorySize`) for strongly typed memory size indications.
 #![doc(html_root_url = "https://docs.rs/memory-size-type/latest")]
 #![cfg_attr(not(feature = "std"), no_std)]
 
