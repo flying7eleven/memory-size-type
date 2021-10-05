@@ -227,7 +227,7 @@ impl MemorySize {
 /// use memory_size_type::MemorySize;
 ///
 /// let size = MemorySize::new(13958643712);
-/// assert_eq!(format!("{:?}", size), "13958643712 bytes");
+/// assert_eq!(format!("{}", size), "13958643712 bytes");
 /// ```
 #[cfg(feature = "std")]
 impl std::fmt::Display for MemorySize {
