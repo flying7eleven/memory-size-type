@@ -1,8 +1,6 @@
 //! A data type for dealing with memory sizes
 #![doc(html_root_url = "https://docs.rs/memory-size-type/latest")]
-#![no_std]
-#[cfg(feature = "std")]
-extern crate std;
+#![cfg_attr(not(feature = "std"), no_std)]
 
 pub struct MemorySize {
     size: u64,
