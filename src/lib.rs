@@ -9,14 +9,14 @@ pub struct MemorySize {
 }
 
 impl MemorySize {
-    ///The number of bytes in a kilobyte.
-    const BYTES_PER_KILOBYTE: u64 = 1024;
+    ///The number of bytes in a kibibyte.
+    const BYTES_PER_KIBIBYTE: u64 = 1024;
 
-    ///The number of bytes in a megabyte.
-    const BYTES_PER_MEGABYTE: u64 = MemorySize::BYTES_PER_KILOBYTE * 1024;
+    ///The number of bytes in a mebibyte.
+    const BYTES_PER_MEBIBYTE: u64 = MemorySize::BYTES_PER_KIBIBYTE * 1024;
 
-    ///The number of bytes in a gigabyte.
-    const BYTES_PER_GIGABYTE: u64 = MemorySize::BYTES_PER_MEGABYTE * 1024;
+    ///The number of bytes in a gibibyte.
+    const BYTES_PER_GIBIBYTE: u64 = MemorySize::BYTES_PER_MEBIBYTE * 1024;
 
     /// Creates a new `MemorySize` from the specified number of whole bytes.
     ///
@@ -42,70 +42,70 @@ impl MemorySize {
     /// let size = MemorySize::from_bytes(13312);
     ///
     /// assert_eq!(13312, size.as_bytes());
-    /// assert_eq!(13, size.as_kilobytes());
+    /// assert_eq!(13, size.as_kibibytes());
     /// ```
     #[inline]
     pub const fn from_bytes(bytes: u64) -> MemorySize {
         MemorySize { size: bytes }
     }
 
-    /// Creates a new `MemorySize` from the specified number of whole kilobytes.
+    /// Creates a new `MemorySize` from the specified number of whole kibibytes.
     ///
     /// # Examples
     ///
     /// ```
     /// use memory_size_type::MemorySize;
     ///
-    /// let size = MemorySize::from_kilobytes(13);
+    /// let size = MemorySize::from_kibibytes(13);
     ///
     /// assert_eq!(13312, size.as_bytes());
-    /// assert_eq!(13, size.as_kilobytes());
+    /// assert_eq!(13, size.as_kibibytes());
     /// ```
     #[inline]
-    pub const fn from_kilobytes(megabytes: u64) -> MemorySize {
+    pub const fn from_kibibytes(megabytes: u64) -> MemorySize {
         MemorySize {
-            size: megabytes * MemorySize::BYTES_PER_KILOBYTE,
+            size: megabytes * MemorySize::BYTES_PER_KIBIBYTE,
         }
     }
 
-    /// Creates a new `MemorySize` from the specified number of whole megabytes.
+    /// Creates a new `MemorySize` from the specified number of whole mebibytes.
     ///
     /// # Examples
     ///
     /// ```
     /// use memory_size_type::MemorySize;
     ///
-    /// let size = MemorySize::from_megabytes(13);
+    /// let size = MemorySize::from_mebibytes(13);
     ///
     /// assert_eq!(13631488, size.as_bytes());
-    /// assert_eq!(13312, size.as_kilobytes());
-    /// assert_eq!(13, size.as_megabytes());
+    /// assert_eq!(13312, size.as_kibibytes());
+    /// assert_eq!(13, size.as_mebibytes());
     /// ```
     #[inline]
-    pub const fn from_megabytes(megabytes: u64) -> MemorySize {
+    pub const fn from_mebibytes(megabytes: u64) -> MemorySize {
         MemorySize {
-            size: megabytes * MemorySize::BYTES_PER_MEGABYTE,
+            size: megabytes * MemorySize::BYTES_PER_MEBIBYTE,
         }
     }
 
-    /// Creates a new `MemorySize` from the specified number of whole gigabytes.
+    /// Creates a new `MemorySize` from the specified number of whole gigibytes.
     ///
     /// # Examples
     ///
     /// ```
     /// use memory_size_type::MemorySize;
     ///
-    /// let size = MemorySize::from_gigabytes(13);
+    /// let size = MemorySize::from_gibibytes(13);
     ///
     /// assert_eq!(13958643712, size.as_bytes());
-    /// assert_eq!(13631488, size.as_kilobytes());
-    /// assert_eq!(13312, size.as_megabytes());
-    /// assert_eq!(13, size.as_gigabytes());
+    /// assert_eq!(13631488, size.as_kibibytes());
+    /// assert_eq!(13312, size.as_mebibytes());
+    /// assert_eq!(13, size.as_gibibytes());
     /// ```
     #[inline]
-    pub const fn from_gigabytes(megabytes: u64) -> MemorySize {
+    pub const fn from_gibibytes(megabytes: u64) -> MemorySize {
         MemorySize {
-            size: megabytes * MemorySize::BYTES_PER_GIGABYTE,
+            size: megabytes * MemorySize::BYTES_PER_GIBIBYTE,
         }
     }
 
@@ -124,7 +124,7 @@ impl MemorySize {
         self.size
     }
 
-    /// Returns the total number of whole kilobytes contained by this `MemorySize`.
+    /// Returns the total number of whole kibibytes contained by this `MemorySize`.
     ///
     /// # Examples
     ///
@@ -132,15 +132,15 @@ impl MemorySize {
     /// use memory_size_type::MemorySize;
     ///
     /// let size = MemorySize::new(13312);
-    /// assert_eq!(13, size.as_kilobytes());
+    /// assert_eq!(13, size.as_kibibytes());
     /// ```
     #[inline]
-    pub fn as_kilobytes(&self) -> u64 {
+    pub fn as_kibibytes(&self) -> u64 {
         use num_integer::Integer;
-        self.size.div_floor(&MemorySize::BYTES_PER_KILOBYTE)
+        self.size.div_floor(&MemorySize::BYTES_PER_KIBIBYTE)
     }
 
-    /// Returns the total number of whole megabytes contained by this `MemorySize`.
+    /// Returns the total number of whole mebibytes contained by this `MemorySize`.
     ///
     /// # Examples
     ///
@@ -148,15 +148,15 @@ impl MemorySize {
     /// use memory_size_type::MemorySize;
     ///
     /// let size = MemorySize::new(13631488);
-    /// assert_eq!(13, size.as_megabytes());
+    /// assert_eq!(13, size.as_mebibytes());
     /// ```
     #[inline]
-    pub fn as_megabytes(&self) -> u64 {
+    pub fn as_mebibytes(&self) -> u64 {
         use num_integer::Integer;
-        self.size.div_floor(&MemorySize::BYTES_PER_MEGABYTE)
+        self.size.div_floor(&MemorySize::BYTES_PER_MEBIBYTE)
     }
 
-    /// Returns the total number of whole gigabytes contained by this `MemorySize`.
+    /// Returns the total number of whole gibibytes contained by this `MemorySize`.
     ///
     /// # Examples
     ///
@@ -164,12 +164,12 @@ impl MemorySize {
     /// use memory_size_type::MemorySize;
     ///
     /// let size = MemorySize::new(13958643712);
-    /// assert_eq!(13, size.as_gigabytes());
+    /// assert_eq!(13, size.as_gibibytes());
     /// ```
     #[inline]
-    pub fn as_gigabytes(&self) -> u64 {
+    pub fn as_gibibytes(&self) -> u64 {
         use num_integer::Integer;
-        self.size.div_floor(&MemorySize::BYTES_PER_GIGABYTE)
+        self.size.div_floor(&MemorySize::BYTES_PER_GIBIBYTE)
     }
 }
 
