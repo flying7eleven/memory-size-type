@@ -12,7 +12,7 @@ To use this library, you just have to add the following lines into your projects
 
 ```toml
 [dependencies.memory-size-type]
-version = "0.1.0"
+version = "0.2.0"
 default-features = false
 ```
 
