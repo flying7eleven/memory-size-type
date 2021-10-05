@@ -32,20 +32,6 @@ impl MemorySize {
     /// ```
     /// use memory_size_type::MemorySize;
     ///
-    /// let ten_bytes = MemorySize::new(10);
-    /// ```
-    #[inline]
-    pub const fn new(bytes: u64) -> MemorySize {
-        MemorySize { size: bytes }
-    }
-
-    /// Creates a new `MemorySize` from the specified number of whole bytes.
-    ///
-    /// # Examples
-    ///
-    /// ```
-    /// use memory_size_type::MemorySize;
-    ///
     /// let size = MemorySize::from_bytes(13312);
     ///
     /// assert_eq!(13312, size.as_bytes());
@@ -145,7 +131,7 @@ impl MemorySize {
     /// ```
     /// use memory_size_type::MemorySize;
     ///
-    /// let size = MemorySize::new(13312);
+    /// let size = MemorySize::from_bytes(13312);
     /// assert_eq!(13312, size.as_bytes());
     /// ```
     #[inline]
@@ -160,7 +146,7 @@ impl MemorySize {
     /// ```
     /// use memory_size_type::MemorySize;
     ///
-    /// let size = MemorySize::new(13312);
+    /// let size = MemorySize::from_bytes(13312);
     /// assert_eq!(13, size.as_kibibytes());
     /// ```
     #[inline]
@@ -176,7 +162,7 @@ impl MemorySize {
     /// ```
     /// use memory_size_type::MemorySize;
     ///
-    /// let size = MemorySize::new(13631488);
+    /// let size = MemorySize::from_bytes(13631488);
     /// assert_eq!(13, size.as_mebibytes());
     /// ```
     #[inline]
@@ -192,7 +178,7 @@ impl MemorySize {
     /// ```
     /// use memory_size_type::MemorySize;
     ///
-    /// let size = MemorySize::new(13958643712);
+    /// let size = MemorySize::from_bytes(13958643712);
     /// assert_eq!(13, size.as_gibibytes());
     /// ```
     #[inline]
@@ -208,7 +194,7 @@ impl MemorySize {
     /// ```
     /// use memory_size_type::MemorySize;
     ///
-    /// let size = MemorySize::new(14293651161088);
+    /// let size = MemorySize::from_bytes(14293651161088);
     /// assert_eq!(13, size.as_tebibytes());
     /// ```
     #[inline]
@@ -226,7 +212,7 @@ impl MemorySize {
 /// ```
 /// use memory_size_type::MemorySize;
 ///
-/// let size = MemorySize::new(13958643712);
+/// let size = MemorySize::from_bytes(13958643712);
 /// assert_eq!(format!("{}", size), "13958643712 bytes");
 /// ```
 #[cfg(feature = "std")]
@@ -244,7 +230,7 @@ impl std::fmt::Display for MemorySize {
 /// ```
 /// use memory_size_type::MemorySize;
 ///
-/// let size = MemorySize::new(13958643712);
+/// let size = MemorySize::from_bytes(13958643712);
 /// assert_eq!(format!("{:?}", size), "13958643712 bytes");
 /// ```
 #[cfg(feature = "std")]
