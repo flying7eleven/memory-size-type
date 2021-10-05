@@ -22,6 +22,9 @@ impl MemorySize {
     ///The number of bytes in a gibibyte.
     const BYTES_PER_GIBIBYTE: u64 = MemorySize::BYTES_PER_MEBIBYTE * 1024;
 
+    ///The number of bytes in a tebibyte.
+    const BYTES_PER_TEBIBYTE: u64 = MemorySize::BYTES_PER_GIBIBYTE * 1024;
+
     /// Creates a new `MemorySize` from the specified number of whole bytes.
     ///
     /// # Examples
@@ -113,6 +116,28 @@ impl MemorySize {
         }
     }
 
+    /// Creates a new `MemorySize` from the specified number of whole tebibytes.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use memory_size_type::MemorySize;
+    ///
+    /// let size = MemorySize::from_tebibytes(13);
+    ///
+    /// assert_eq!(14293651161088, size.as_bytes());
+    /// assert_eq!(13958643712, size.as_kibibytes());
+    /// assert_eq!(13631488, size.as_mebibytes());
+    /// assert_eq!(13312, size.as_gibibytes());
+    /// assert_eq!(13, size.as_tebibytes());
+    /// ```
+    #[inline]
+    pub const fn from_tebibytes(megabytes: u64) -> MemorySize {
+        MemorySize {
+            size: megabytes * MemorySize::BYTES_PER_TEBIBYTE,
+        }
+    }
+
     /// Returns the total number of bytes contained by this `MemorySize`.
     ///
     /// # Examples
@@ -174,6 +199,22 @@ impl MemorySize {
     pub fn as_gibibytes(&self) -> u64 {
         use num_integer::Integer;
         self.size.div_floor(&MemorySize::BYTES_PER_GIBIBYTE)
+    }
+
+    /// Returns the total number of whole tebibytes contained by this `MemorySize`.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use memory_size_type::MemorySize;
+    ///
+    /// let size = MemorySize::new(14293651161088);
+    /// assert_eq!(13, size.as_tebibytes());
+    /// ```
+    #[inline]
+    pub fn as_tebibytes(&self) -> u64 {
+        use num_integer::Integer;
+        self.size.div_floor(&MemorySize::BYTES_PER_TEBIBYTE)
     }
 }
 
