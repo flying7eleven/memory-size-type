@@ -1,5 +1,8 @@
 //! A data type for dealing with memory sizes
 #![doc(html_root_url = "https://docs.rs/memory-size-type/latest")]
+#![no_std]
+#[cfg(feature = "std")]
+extern crate std;
 
 pub struct MemorySize {
     size: u64,
@@ -181,6 +184,7 @@ impl MemorySize {
 /// let size = MemorySize::new(13958643712);
 /// assert_eq!(format!("{:?}", size), "13958643712 bytes");
 /// ```
+#[cfg(feature = "std")]
 impl std::fmt::Display for MemorySize {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{} bytes", self.size) // TODO: should be replaced by a method which use the most useful size unit
@@ -198,6 +202,7 @@ impl std::fmt::Display for MemorySize {
 /// let size = MemorySize::new(13958643712);
 /// assert_eq!(format!("{:?}", size), "13958643712 bytes");
 /// ```
+#[cfg(feature = "std")]
 impl std::fmt::Debug for MemorySize {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{} bytes", self.size)
