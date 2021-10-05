@@ -1,6 +1,10 @@
 //! # Memory Size Type
 //!
 //! This crate implements a data type (`MemorySize`) for strongly typed memory size indications.
+//!
+//! There is support for memory units with a base of 10 (as recommended by the International
+//! Electrotechnical Commission). A support for memory units with the base of 2 (as standardized
+//! by IEC 80000-13) will follow soon.
 #![doc(html_root_url = "https://docs.rs/memory-size-type/latest")]
 #![cfg_attr(not(feature = "std"), no_std)]
 
