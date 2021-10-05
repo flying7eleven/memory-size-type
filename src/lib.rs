@@ -55,6 +55,7 @@ impl MemorySize {
     /// assert_eq!(13, size.as_kibibytes());
     /// ```
     #[inline]
+    #[cfg(feature = "base10")]
     pub const fn from_kibibytes(megabytes: u64) -> MemorySize {
         MemorySize {
             size: megabytes * MemorySize::BYTES_PER_KIBIBYTE,
@@ -75,6 +76,7 @@ impl MemorySize {
     /// assert_eq!(13, size.as_mebibytes());
     /// ```
     #[inline]
+    #[cfg(feature = "base10")]
     pub const fn from_mebibytes(megabytes: u64) -> MemorySize {
         MemorySize {
             size: megabytes * MemorySize::BYTES_PER_MEBIBYTE,
@@ -96,6 +98,7 @@ impl MemorySize {
     /// assert_eq!(13, size.as_gibibytes());
     /// ```
     #[inline]
+    #[cfg(feature = "base10")]
     pub const fn from_gibibytes(megabytes: u64) -> MemorySize {
         MemorySize {
             size: megabytes * MemorySize::BYTES_PER_GIBIBYTE,
@@ -118,6 +121,7 @@ impl MemorySize {
     /// assert_eq!(13, size.as_tebibytes());
     /// ```
     #[inline]
+    #[cfg(feature = "base10")]
     pub const fn from_tebibytes(megabytes: u64) -> MemorySize {
         MemorySize {
             size: megabytes * MemorySize::BYTES_PER_TEBIBYTE,
@@ -150,6 +154,7 @@ impl MemorySize {
     /// assert_eq!(13, size.as_kibibytes());
     /// ```
     #[inline]
+    #[cfg(feature = "base10")]
     pub fn as_kibibytes(&self) -> u64 {
         use num_integer::Integer;
         self.size.div_floor(&MemorySize::BYTES_PER_KIBIBYTE)
@@ -166,6 +171,7 @@ impl MemorySize {
     /// assert_eq!(13, size.as_mebibytes());
     /// ```
     #[inline]
+    #[cfg(feature = "base10")]
     pub fn as_mebibytes(&self) -> u64 {
         use num_integer::Integer;
         self.size.div_floor(&MemorySize::BYTES_PER_MEBIBYTE)
@@ -182,6 +188,7 @@ impl MemorySize {
     /// assert_eq!(13, size.as_gibibytes());
     /// ```
     #[inline]
+    #[cfg(feature = "base10")]
     pub fn as_gibibytes(&self) -> u64 {
         use num_integer::Integer;
         self.size.div_floor(&MemorySize::BYTES_PER_GIBIBYTE)
@@ -198,6 +205,7 @@ impl MemorySize {
     /// assert_eq!(13, size.as_tebibytes());
     /// ```
     #[inline]
+    #[cfg(feature = "base10")]
     pub fn as_tebibytes(&self) -> u64 {
         use num_integer::Integer;
         self.size.div_floor(&MemorySize::BYTES_PER_TEBIBYTE)

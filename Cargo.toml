@@ -13,8 +13,9 @@ categories = ["value-formatting", "rust-patterns", "data-structures"]
 exclude = [".github/", ".gitignore"]
 
 [features]
-default = ["std"]
+default = ["std", "base10"]
 std = []
+base10 = []
 
 [badges]
 maintenance = { status = "actively-developed" }
