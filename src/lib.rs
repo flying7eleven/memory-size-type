@@ -7,6 +7,9 @@
 //! by IEC 80000-13) will follow soon.
 #![doc(html_root_url = "https://docs.rs/memory-size-type/latest")]
 #![cfg_attr(not(feature = "std"), no_std)]
+#![deny(clippy::all)]
+#![deny(clippy::pedantic)]
+#![allow(clippy::must_use_candidate)]
 
 pub struct MemorySize {
     size: u64,
