@@ -13,12 +13,20 @@ To use this library, you just have to add the following lines into your projects
 
 ```toml
 [dependencies.memory-size-type]
-version = "0.2.0"
+version = "0.3.0"
 default-features = false
 ```
 
 ### Examples
 There are different use-cases for this library. The following examples represent just some possible usages.
+
+#### Creating an instance from raw byte information
+```rust
+use memory_size_type::MemorySize;
+
+let size_info_pb = MemorySize::from_pebibytes(13);
+let size_info_byte = MemorySize::from_bytes(1024);
+```
 
 #### Calculating with memory sizes
 ```rust
