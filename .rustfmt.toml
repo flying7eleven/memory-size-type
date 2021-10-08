@@ -2,3 +2,5 @@ reorder_imports = true
 reorder_modules = true
 newline_style = "Unix"
 imports_granularity = "Module"
+normalize_comments = true
+normalize_doc_attributes = true
