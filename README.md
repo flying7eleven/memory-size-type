@@ -15,6 +15,7 @@ To use this library, you just have to add the following lines into your projects
 [dependencies.memory-size-type]
 version = "0.3.0"
 default-features = false
+features = ["base10", "base2"]
 ```
 
 ### Examples
