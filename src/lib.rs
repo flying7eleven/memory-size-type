@@ -17,18 +17,23 @@ pub struct MemorySize {
 
 impl MemorySize {
     ///The number of bytes in a kibibyte.
+    #[cfg(feature = "base10")]
     const BYTES_PER_KIBIBYTE: u64 = 1024;
 
     ///The number of bytes in a mebibyte.
+    #[cfg(feature = "base10")]
     const BYTES_PER_MEBIBYTE: u64 = MemorySize::BYTES_PER_KIBIBYTE * 1024;
 
     ///The number of bytes in a gibibyte.
+    #[cfg(feature = "base10")]
     const BYTES_PER_GIBIBYTE: u64 = MemorySize::BYTES_PER_MEBIBYTE * 1024;
 
     ///The number of bytes in a tebibyte.
+    #[cfg(feature = "base10")]
     const BYTES_PER_TEBIBYTE: u64 = MemorySize::BYTES_PER_GIBIBYTE * 1024;
 
     ///The number of bytes in a pebibyte.
+    #[cfg(feature = "base10")]
     const BYTES_PER_PEBIBYTE: u64 = MemorySize::BYTES_PER_TEBIBYTE * 1024;
 
     /// Creates a new `MemorySize` from the specified number of whole bytes.
