@@ -20,6 +20,10 @@ impl MemorySize {
     #[cfg(feature = "base2")]
     const BYTES_PER_KIBIBYTE: u64 = 1024;
 
+    ///The number of bytes in a kilobyte.
+    #[cfg(feature = "base10")]
+    const BYTES_PER_KILOBYTE: u64 = 1000;
+
     ///The number of bytes in a mebibyte.
     #[cfg(feature = "base2")]
     const BYTES_PER_MEBIBYTE: u64 = MemorySize::BYTES_PER_KIBIBYTE * 1024;
@@ -70,6 +74,26 @@ impl MemorySize {
     pub const fn from_kibibytes(megabytes: u64) -> MemorySize {
         MemorySize {
             size: megabytes * MemorySize::BYTES_PER_KIBIBYTE,
+        }
+    }
+
+    /// Creates a new `MemorySize` from the specified number of whole kilobytes.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use memory_size_type::MemorySize;
+    ///
+    /// let size = MemorySize::from_kilobytes(13);
+    ///
+    /// assert_eq!(13000, size.as_bytes());
+    /// assert_eq!(13, size.as_kilobytes());
+    /// ```
+    #[inline]
+    #[cfg(feature = "base10")]
+    pub const fn from_kilobytes(megabytes: u64) -> MemorySize {
+        MemorySize {
+            size: megabytes * MemorySize::BYTES_PER_KILOBYTE,
         }
     }
 
@@ -193,6 +217,23 @@ impl MemorySize {
     pub fn as_kibibytes(&self) -> u64 {
         use num_integer::Integer;
         self.size.div_floor(&MemorySize::BYTES_PER_KIBIBYTE)
+    }
+
+    /// Returns the total number of whole kilobyte contained by this `MemorySize`.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use memory_size_type::MemorySize;
+    ///
+    /// let size = MemorySize::from_bytes(13000);
+    /// assert_eq!(13, size.as_kilobytes());
+    /// ```
+    #[inline]
+    #[cfg(feature = "base10")]
+    pub fn as_kilobytes(&self) -> u64 {
+        use num_integer::Integer;
+        self.size.div_floor(&MemorySize::BYTES_PER_KILOBYTE)
     }
 
     /// Returns the total number of whole mebibytes contained by this `MemorySize`.
