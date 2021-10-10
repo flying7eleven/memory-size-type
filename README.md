@@ -13,38 +13,36 @@ To use this library, you just have to add the following lines into your projects
 
 ```toml
 [dependencies.memory-size-type]
-version = "0.3.0"
+version = "0.4.0"
 default-features = false
-features = ["base10", "base2"]
+features = ["std"]
 ```
 
 ## Features
 The crate is seperated into several features to reduce its size (even with this small crate). You can use the following
 features to enable the stuff you really need in your project:
 
-| Feature | Description                                                                         |
-|:--------|:------------------------------------------------------------------------------------|
-| std     | Include features like implementations for `std::fmt::Debug` and `std::fmt::Display` |
-| base2   | Include units with a base of two (binary units)                                     |
-| base10  | Include units with the base of 10 (SI units)                                        |
+| Feature    | Description                                                                         |
+|:-----------|:------------------------------------------------------------------------------------|
+| std        | Include features like implementations for `std::fmt::Debug` and `std::fmt::Display` |
+| deprecated | Include the deprecated features like the `MemorySize` type.                         |
 
 ### Examples
 There are different use-cases for this library. The following examples represent just some possible usages.
 
 #### Creating an instance from raw byte information
 ```rust
-use memory_size_type::MemorySize;
+use memory_size_type::Byte;
 
-let size_info_pb = MemorySize::from_pebibytes(13);
-let size_info_byte = MemorySize::from_bytes(1024);
+let size_info_byte = Byte::from(1024);
 ```
 
 #### Calculating with memory sizes
 ```rust
-TODO
-```
+use memory_size_type::Byte;
 
-#### Printing a size in a human-readable format
-```rust
-TODO
+let some_bytes = Byte::from(1024);
+let some_more_bytes = Byte::from(1024);
+
+assert_eq!(some_bytes + some_more_bytes, 2048);
 ```
