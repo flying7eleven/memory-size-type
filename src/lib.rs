@@ -33,7 +33,7 @@ impl From<u64> for Byte {
 
 #[cfg(feature = "std")]
 impl std::ops::Add for Byte {
-    type Output = u64;
+    type Output = Byte;
 
     /// Performs the `+` operation on a byte.
     ///
@@ -44,10 +44,10 @@ impl std::ops::Add for Byte {
     ///
     /// let some_bytes = Byte::from(256);
     /// let some_more_bytes = Byte::from(256);
-    /// assert_eq!(some_bytes + some_more_bytes, 512);
+    /// assert_eq!((some_bytes + some_more_bytes).to_string(), "512 bytes");
     /// ```
     fn add(self, rhs: Self) -> Self::Output {
-        self.0 + rhs.0
+        Byte(self.0 + rhs.0)
     }
 }
 
@@ -134,7 +134,7 @@ impl From<Byte> for Kibibyte {
 
 #[cfg(feature = "std")]
 impl std::ops::Add for Kibibyte {
-    type Output = u64;
+    type Output = Kibibyte;
 
     /// Performs the `+` operation on a byte.
     ///
@@ -145,10 +145,10 @@ impl std::ops::Add for Kibibyte {
     ///
     /// let some_kibibytes = Kibibyte::from(256);
     /// let some_more_kibibytes = Kibibyte::from(256);
-    /// assert_eq!(some_kibibytes + some_more_kibibytes, 512);
+    /// assert_eq!((some_kibibytes + some_more_kibibytes).to_string(), "512 kibibytes");
     /// ```
     fn add(self, rhs: Self) -> Self::Output {
-        self.0 + rhs.0
+        Kibibyte(self.0 + rhs.0)
     }
 }
 
