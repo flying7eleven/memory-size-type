@@ -11,33 +11,29 @@
 #![deny(clippy::pedantic)]
 #![allow(clippy::must_use_candidate)]
 
+#[cfg(feature = "deprecated")]
 pub struct MemorySize {
     size: u64,
 }
 
+#[cfg(feature = "deprecated")]
 impl MemorySize {
     ///The number of bytes in a kibibyte.
-    #[cfg(feature = "base2")]
     const BYTES_PER_KIBIBYTE: u64 = 1024;
 
     ///The number of bytes in a kilobyte.
-    #[cfg(feature = "base10")]
     const BYTES_PER_KILOBYTE: u64 = 1000;
 
     ///The number of bytes in a mebibyte.
-    #[cfg(feature = "base2")]
     const BYTES_PER_MEBIBYTE: u64 = MemorySize::BYTES_PER_KIBIBYTE * 1024;
 
     ///The number of bytes in a gibibyte.
-    #[cfg(feature = "base2")]
     const BYTES_PER_GIBIBYTE: u64 = MemorySize::BYTES_PER_MEBIBYTE * 1024;
 
     ///The number of bytes in a tebibyte.
-    #[cfg(feature = "base2")]
     const BYTES_PER_TEBIBYTE: u64 = MemorySize::BYTES_PER_GIBIBYTE * 1024;
 
     ///The number of bytes in a pebibyte.
-    #[cfg(feature = "base2")]
     const BYTES_PER_PEBIBYTE: u64 = MemorySize::BYTES_PER_TEBIBYTE * 1024;
 
     /// Creates a new `MemorySize` from the specified number of whole bytes.
@@ -70,7 +66,6 @@ impl MemorySize {
     /// assert_eq!(13, size.as_kibibytes());
     /// ```
     #[inline]
-    #[cfg(feature = "base2")]
     pub const fn from_kibibytes(megabytes: u64) -> MemorySize {
         MemorySize {
             size: megabytes * MemorySize::BYTES_PER_KIBIBYTE,
@@ -90,7 +85,6 @@ impl MemorySize {
     /// assert_eq!(13, size.as_kilobytes());
     /// ```
     #[inline]
-    #[cfg(feature = "base10")]
     pub const fn from_kilobytes(megabytes: u64) -> MemorySize {
         MemorySize {
             size: megabytes * MemorySize::BYTES_PER_KILOBYTE,
@@ -111,7 +105,6 @@ impl MemorySize {
     /// assert_eq!(13, size.as_mebibytes());
     /// ```
     #[inline]
-    #[cfg(feature = "base2")]
     pub const fn from_mebibytes(megabytes: u64) -> MemorySize {
         MemorySize {
             size: megabytes * MemorySize::BYTES_PER_MEBIBYTE,
@@ -133,7 +126,6 @@ impl MemorySize {
     /// assert_eq!(13, size.as_gibibytes());
     /// ```
     #[inline]
-    #[cfg(feature = "base2")]
     pub const fn from_gibibytes(megabytes: u64) -> MemorySize {
         MemorySize {
             size: megabytes * MemorySize::BYTES_PER_GIBIBYTE,
@@ -156,7 +148,6 @@ impl MemorySize {
     /// assert_eq!(13, size.as_tebibytes());
     /// ```
     #[inline]
-    #[cfg(feature = "base2")]
     pub const fn from_tebibytes(megabytes: u64) -> MemorySize {
         MemorySize {
             size: megabytes * MemorySize::BYTES_PER_TEBIBYTE,
@@ -180,7 +171,6 @@ impl MemorySize {
     /// assert_eq!(13, size.as_pebibytes());
     /// ```
     #[inline]
-    #[cfg(feature = "base2")]
     pub const fn from_pebibytes(megabytes: u64) -> MemorySize {
         MemorySize {
             size: megabytes * MemorySize::BYTES_PER_PEBIBYTE,
@@ -213,7 +203,6 @@ impl MemorySize {
     /// assert_eq!(13, size.as_kibibytes());
     /// ```
     #[inline]
-    #[cfg(feature = "base2")]
     pub fn as_kibibytes(&self) -> u64 {
         use num_integer::Integer;
         self.size.div_floor(&MemorySize::BYTES_PER_KIBIBYTE)
@@ -230,7 +219,6 @@ impl MemorySize {
     /// assert_eq!(13, size.as_kilobytes());
     /// ```
     #[inline]
-    #[cfg(feature = "base10")]
     pub fn as_kilobytes(&self) -> u64 {
         use num_integer::Integer;
         self.size.div_floor(&MemorySize::BYTES_PER_KILOBYTE)
@@ -247,7 +235,6 @@ impl MemorySize {
     /// assert_eq!(13, size.as_mebibytes());
     /// ```
     #[inline]
-    #[cfg(feature = "base2")]
     pub fn as_mebibytes(&self) -> u64 {
         use num_integer::Integer;
         self.size.div_floor(&MemorySize::BYTES_PER_MEBIBYTE)
@@ -264,7 +251,6 @@ impl MemorySize {
     /// assert_eq!(13, size.as_gibibytes());
     /// ```
     #[inline]
-    #[cfg(feature = "base2")]
     pub fn as_gibibytes(&self) -> u64 {
         use num_integer::Integer;
         self.size.div_floor(&MemorySize::BYTES_PER_GIBIBYTE)
@@ -281,7 +267,6 @@ impl MemorySize {
     /// assert_eq!(13, size.as_tebibytes());
     /// ```
     #[inline]
-    #[cfg(feature = "base2")]
     pub fn as_tebibytes(&self) -> u64 {
         use num_integer::Integer;
         self.size.div_floor(&MemorySize::BYTES_PER_TEBIBYTE)
@@ -298,7 +283,6 @@ impl MemorySize {
     /// assert_eq!(13, size.as_pebibytes());
     /// ```
     #[inline]
-    #[cfg(feature = "base2")]
     pub fn as_pebibytes(&self) -> u64 {
         use num_integer::Integer;
         self.size.div_floor(&MemorySize::BYTES_PER_PEBIBYTE)
@@ -316,7 +300,7 @@ impl MemorySize {
 /// let size = MemorySize::from_bytes(13958643712);
 /// assert_eq!(format!("{}", size), "13958643712 bytes");
 /// ```
-#[cfg(feature = "std")]
+#[cfg(all(feature = "std", feature = "deprecated"))]
 impl std::fmt::Display for MemorySize {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{} bytes", self.size) // TODO: should be replaced by a method which use the most useful size unit
@@ -334,7 +318,7 @@ impl std::fmt::Display for MemorySize {
 /// let size = MemorySize::from_bytes(13958643712);
 /// assert_eq!(format!("{:?}", size), "13958643712 bytes");
 /// ```
-#[cfg(feature = "std")]
+#[cfg(all(feature = "std", feature = "deprecated"))]
 impl std::fmt::Debug for MemorySize {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{} bytes", self.size)
