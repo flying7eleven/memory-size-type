@@ -15,11 +15,12 @@ exclude = [".github/", ".gitignore"]
 [features]
 default = ["std"]
 std = []
-deprecated = []
+deprecated = ["num-integer"]
 
 [badges]
 maintenance = { status = "actively-developed" }
 
 [dependencies.num-integer]
 version = "0.1.44"
+optional = true
 default-features = false
