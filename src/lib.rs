@@ -96,6 +96,107 @@ impl std::fmt::Debug for Byte {
     }
 }
 
+/// The structure for representing a specific number of kibibytes (1 kibibyte = 1024 bytes).
+pub struct Kibibyte(u64);
+
+/// The structure for representing a specific number of kibibytes (1 kibibyte = 1024 bytes).
+pub type Kibibytes = Kibibyte;
+
+impl From<u64> for Kibibyte {
+    /// Get a kibibyte representation from a u64 number representing the number of kibibytes.
+    ///
+    /// # Example
+    /// ```
+    /// use memory_size_type::Kibibyte;
+    ///
+    /// let some_bytes = Kibibyte::from(256);
+    /// ```
+    fn from(value: u64) -> Self {
+        Kibibyte(value)
+    }
+}
+
+impl From<Byte> for Kibibyte {
+    /// Get a kibibyte representation from a Byte representation.
+    ///
+    /// # Example
+    /// ```
+    /// use memory_size_type::{Kibibyte, Byte};
+    ///
+    /// let some_kibibytes = Kibibyte::from(Byte::from(256));
+    /// ```
+    fn from(value: Byte) -> Self {
+        const KIBIBYTES_PER_BYTE: u64 = 1024;
+
+        Kibibyte(value.0 * KIBIBYTES_PER_BYTE)
+    }
+}
+
+#[cfg(feature = "std")]
+impl std::ops::Add for Kibibyte {
+    type Output = u64;
+
+    /// Performs the `+` operation on a byte.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use memory_size_type::Kibibyte;
+    ///
+    /// let some_kibibytes = Kibibyte::from(256);
+    /// let some_more_kibibytes = Kibibyte::from(256);
+    /// assert_eq!(some_kibibytes + some_more_kibibytes, 512);
+    /// ```
+    fn add(self, rhs: Self) -> Self::Output {
+        self.0 + rhs.0
+    }
+}
+
+#[cfg(feature = "std")]
+impl std::fmt::Display for Kibibyte {
+    /// Formats the represented kibibyte value using the given formatter.
+    ///
+    /// # Example
+    /// ```
+    /// use memory_size_type::Kibibyte;
+    ///
+    /// let one_kibibyte = Kibibyte::from(1);
+    /// let several_kibibytes = Kibibyte::from(256);
+    ///
+    /// assert_eq!("1 kibibyte", format!("{}", one_kibibyte));
+    /// assert_eq!("256 kibibytes", format!("{}", several_kibibytes));
+    /// ```
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        if self.0 == 1 {
+            return write!(f, "{} kibibyte", self.0);
+        }
+        write!(f, "{} kibibytes", self.0)
+    }
+}
+
+#[cfg(feature = "std")]
+impl std::fmt::Debug for Kibibyte {
+    /// Formats the represented kibibyte value using the given formatter in a programmer-facing,
+    /// debugging context.
+    ///
+    /// # Example
+    /// ```
+    /// use memory_size_type::Kibibyte;
+    ///
+    /// let one_kibibyte = Kibibyte::from(1);
+    /// let several_kibibytes = Kibibyte::from(256);
+    ///
+    /// assert_eq!("1 kibibyte", format!("{}", one_kibibyte));
+    /// assert_eq!("256 kibibytes", format!("{}", several_kibibytes));
+    /// ```
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        if self.0 == 1 {
+            return write!(f, "{} kibibyte", self.0);
+        }
+        write!(f, "{} kibibytes", self.0)
+    }
+}
+
 #[cfg(feature = "deprecated")]
 pub struct MemorySize {
     size: u64,
