@@ -14,6 +14,9 @@
 /// The structure for representing a specific number of bytes.
 pub struct Byte(u64);
 
+/// The structure for representing a specific number of bytes.
+pub type Bytes = Byte;
+
 impl From<u64> for Byte {
     /// Get a byte representation from a u64 number.
     ///
