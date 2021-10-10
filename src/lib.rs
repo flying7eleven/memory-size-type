@@ -11,6 +11,45 @@
 #![deny(clippy::pedantic)]
 #![allow(clippy::must_use_candidate)]
 
+/// The structure for representing a specific number of bytes.
+pub struct Byte(u64);
+
+impl From<u64> for Byte {
+    /// Get a byte representation from a u64 number.
+    ///
+    /// # Example
+    /// ```
+    /// use memory_size_type::Byte;
+    ///
+    /// let some_bytes = Byte::from(256);
+    /// ```
+    fn from(value: u64) -> Self {
+        Byte(value)
+    }
+}
+
+#[cfg(feature = "std")]
+impl std::fmt::Display for Byte {
+    /// Formats the represented byte value using the given formatter.
+    ///
+    /// # Example
+    /// ```
+    /// use memory_size_type::Byte;
+    ///
+    /// let one_byte = Byte::from(1);
+    /// let several_bytes = Byte::from(256);
+    ///
+    /// assert_eq!("1 byte", format!("{}", one_byte));
+    /// assert_eq!("256 bytes", format!("{}", several_bytes));
+    /// ```
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        if self.0 == 1 {
+            return write!(f, "{} byte", self.0);
+        }
+        write!(f, "{} bytes", self.0)
+    }
+}
+
 #[cfg(feature = "deprecated")]
 pub struct MemorySize {
     size: u64,
