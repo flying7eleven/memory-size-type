@@ -29,6 +29,26 @@ impl From<u64> for Byte {
 }
 
 #[cfg(feature = "std")]
+impl std::ops::Add for Byte {
+    type Output = u64;
+
+    /// Performs the `+` operation on a byte.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use memory_size_type::Byte;
+    ///
+    /// let some_bytes = Byte::from(256);
+    /// let some_more_bytes = Byte::from(256);
+    /// assert_eq!(some_bytes + some_more_bytes, 512);
+    /// ```
+    fn add(self, rhs: Self) -> Self::Output {
+        self.0 + rhs.0
+    }
+}
+
+#[cfg(feature = "std")]
 impl std::fmt::Display for Byte {
     /// Formats the represented byte value using the given formatter.
     ///
