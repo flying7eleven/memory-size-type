@@ -2,7 +2,7 @@
 name = "memory-size-type"
 version = "0.4.1"
 authors = ["Tim Janke <tim+github@janke.biz>"]
-edition = "2018"
+edition = "2021"
 description = "A data type for dealing with memory sizes"
 documentation = "https://docs.rs/memory-size-type"
 license = "MIT"
@@ -11,6 +11,7 @@ repository = "https://github.com/flying7eleven/memory-size-type"
 keywords = ["memory", "size", "datatype", "type"]
 categories = ["value-formatting", "rust-patterns", "data-structures"]
 exclude = [".github/", ".gitignore"]
+rust-version = "1.57"
 
 [features]
 default = ["std"]
