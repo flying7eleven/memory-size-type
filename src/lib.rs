@@ -9,7 +9,6 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 #![deny(clippy::all)]
 #![deny(clippy::pedantic)]
-#![allow(clippy::must_use_candidate)]
 
 /// The structure for representing a specific number of bytes.
 pub struct Byte(u64);
