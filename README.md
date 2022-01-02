@@ -13,7 +13,7 @@ To use this library, you just have to add the following lines into your projects
 
 ```toml
 [dependencies.memory-size-type]
-version = "0.4.0"
+version = "0.5.0"
 default-features = false
 features = ["std"]
 ```
