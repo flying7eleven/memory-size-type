@@ -16,182 +16,69 @@ pub struct Byte(u64);
 /// The structure for representing a specific number of bytes.
 pub type Bytes = Byte;
 
-impl From<u64> for Byte {
-    /// Get a byte representation from a u64 number.
-    ///
-    /// # Example
-    /// ```
-    /// use memory_size_type::Byte;
-    ///
-    /// let some_bytes = Byte::from(256);
-    /// ```
-    fn from(value: u64) -> Self {
-        Byte(value)
-    }
-}
-
-#[cfg(feature = "std")]
-impl std::ops::Add for Byte {
-    type Output = Byte;
-
-    /// Performs the `+` operation on a byte.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// use memory_size_type::Byte;
-    ///
-    /// let some_bytes = Byte::from(256);
-    /// let some_more_bytes = Byte::from(256);
-    /// assert_eq!((some_bytes + some_more_bytes).to_string(), "512 bytes");
-    /// ```
-    fn add(self, rhs: Self) -> Self::Output {
-        Byte(self.0 + rhs.0)
-    }
-}
-
 #[cfg(feature = "std")]
 impl std::fmt::Display for Byte {
-    /// Formats the represented byte value using the given formatter.
-    ///
-    /// # Example
-    /// ```
-    /// use memory_size_type::Byte;
-    ///
-    /// let one_byte = Byte::from(1);
-    /// let several_bytes = Byte::from(256);
-    ///
-    /// assert_eq!("1 byte", format!("{}", one_byte));
-    /// assert_eq!("256 bytes", format!("{}", several_bytes));
-    /// ```
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        if self.0 == 1 {
-            return write!(f, "{} byte", self.0);
-        }
-        write!(f, "{} bytes", self.0)
+        write!(f, "{} byte(s)", self.0)
     }
 }
 
 #[cfg(feature = "std")]
 impl std::fmt::Debug for Byte {
-    /// Formats the represented byte value using the given formatter in a programmer-facing,
-    /// debugging context.
-    ///
-    /// # Example
-    /// ```
-    /// use memory_size_type::Byte;
-    ///
-    /// let one_byte = Byte::from(1);
-    /// let several_bytes = Byte::from(256);
-    ///
-    /// assert_eq!("1 byte", format!("{}", one_byte));
-    /// assert_eq!("256 bytes", format!("{}", several_bytes));
-    /// ```
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        if self.0 == 1 {
-            return write!(f, "{} byte", self.0);
-        }
-        write!(f, "{} bytes", self.0)
+        write!(f, "{} byte(s)", self.0)
     }
 }
 
-/// The structure for representing a specific number of kibibytes (1 kibibyte = 1024 bytes).
-pub struct Kibibyte(u64);
+#[cfg(test)]
+mod tests {
+    use crate::Byte;
 
-/// The structure for representing a specific number of kibibytes (1 kibibyte = 1024 bytes).
-pub type Kibibytes = Kibibyte;
+    #[test]
+    #[cfg(feature = "std")]
+    fn printing_bytes_works_correctly() {
+        let bytes_lower_limit = Byte(0);
+        let bytes_middle = Byte(512);
+        let bytes_upper_limit = Byte(1023);
 
-impl From<u64> for Kibibyte {
-    /// Get a kibibyte representation from a u64 number representing the number of kibibytes.
-    ///
-    /// # Example
-    /// ```
-    /// use memory_size_type::Kibibyte;
-    ///
-    /// let some_bytes = Kibibyte::from(256);
-    /// ```
-    fn from(value: u64) -> Self {
-        Kibibyte(value)
+        assert_eq!(bytes_lower_limit.to_string(), "0 byte(s)");
+        assert_eq!(bytes_middle.to_string(), "512 byte(s)");
+        assert_eq!(bytes_upper_limit.to_string(), "1023 byte(s)");
     }
-}
 
-impl From<Byte> for Kibibyte {
-    /// Get a kibibyte representation from a Byte representation.
-    ///
-    /// # Example
-    /// ```
-    /// use memory_size_type::{Kibibyte, Byte};
-    ///
-    /// let some_kibibytes = Kibibyte::from(Byte::from(256));
-    /// ```
-    fn from(value: Byte) -> Self {
-        const KIBIBYTES_PER_BYTE: u64 = 1024;
+    #[test]
+    #[cfg(feature = "std")]
+    fn printing_kibibytes_works_correctly() {
+        let kbytes_lower_limit = Byte(1024);
+        let kbytes_middle = Byte(524288);
+        let kbytes_upper_limit = Byte(1048575);
 
-        Kibibyte(value.0 * KIBIBYTES_PER_BYTE)
+        assert_eq!(kbytes_lower_limit.to_string(), "1 kibibyte(s)");
+        assert_eq!(kbytes_middle.to_string(), "512 kibibyte(s)");
+        assert_eq!(kbytes_upper_limit.to_string(), "1023 kibibyte(s)");
     }
-}
 
-#[cfg(feature = "std")]
-impl std::ops::Add for Kibibyte {
-    type Output = Kibibyte;
+    #[test]
+    #[cfg(feature = "std")]
+    fn printing_mebibytes_works_correctly() {
+        let mbytes_lower_limit = Byte(1048576);
+        let mbytes_middle = Byte(536870912);
+        let mbytes_upper_limit = Byte(1073741823);
 
-    /// Performs the `+` operation on a byte.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// use memory_size_type::Kibibyte;
-    ///
-    /// let some_kibibytes = Kibibyte::from(256);
-    /// let some_more_kibibytes = Kibibyte::from(256);
-    /// assert_eq!((some_kibibytes + some_more_kibibytes).to_string(), "512 kibibytes");
-    /// ```
-    fn add(self, rhs: Self) -> Self::Output {
-        Kibibyte(self.0 + rhs.0)
+        assert_eq!(mbytes_lower_limit.to_string(), "1 mebibyte(s)");
+        assert_eq!(mbytes_middle.to_string(), "512 mebibyte(s)");
+        assert_eq!(mbytes_upper_limit.to_string(), "1023 mebibyte(s)");
     }
-}
 
-#[cfg(feature = "std")]
-impl std::fmt::Display for Kibibyte {
-    /// Formats the represented kibibyte value using the given formatter.
-    ///
-    /// # Example
-    /// ```
-    /// use memory_size_type::Kibibyte;
-    ///
-    /// let one_kibibyte = Kibibyte::from(1);
-    /// let several_kibibytes = Kibibyte::from(256);
-    ///
-    /// assert_eq!("1 kibibyte", format!("{}", one_kibibyte));
-    /// assert_eq!("256 kibibytes", format!("{}", several_kibibytes));
-    /// ```
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        if self.0 == 1 {
-            return write!(f, "{} kibibyte", self.0);
-        }
-        write!(f, "{} kibibytes", self.0)
-    }
-}
+    #[test]
+    #[cfg(feature = "std")]
+    fn printing_gibibytes_works_correctly() {
+        let gbytes_lower_limit = Byte(1073741824);
+        let gbytes_middle = Byte(549755813888);
+        let gbytes_upper_limit = Byte(1099511627775);
 
-#[cfg(feature = "std")]
-impl std::fmt::Debug for Kibibyte {
-    /// Formats the represented kibibyte value using the given formatter in a programmer-facing,
-    /// debugging context.
-    ///
-    /// # Example
-    /// ```
-    /// use memory_size_type::Kibibyte;
-    ///
-    /// let one_kibibyte = Kibibyte::from(1);
-    /// let several_kibibytes = Kibibyte::from(256);
-    ///
-    /// assert_eq!("1 kibibyte", format!("{}", one_kibibyte));
-    /// assert_eq!("256 kibibytes", format!("{}", several_kibibytes));
-    /// ```
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        if self.0 == 1 {
-            return write!(f, "{} kibibyte", self.0);
-        }
-        write!(f, "{} kibibytes", self.0)
+        assert_eq!(gbytes_lower_limit.to_string(), "1 gibibyte(s)");
+        assert_eq!(gbytes_middle.to_string(), "512 gibibyte(s)");
+        assert_eq!(gbytes_upper_limit.to_string(), "1023 gibibyte(s)");
     }
 }
