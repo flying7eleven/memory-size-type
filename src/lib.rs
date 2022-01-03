@@ -11,22 +11,86 @@
 #![deny(clippy::pedantic)]
 
 /// The structure for representing a specific number of bytes.
-pub struct Byte(u64);
+pub struct Byte {
+    /// The internally used value to store the number of bytes which are represented by the instance
+    /// of the struct.
+    bytes: u64,
+}
+
+impl Byte {
+    /// Number of bytes in one Kibibyte (KiB).
+    const BYTES_IN_ONE_KIBIBYTE: u64 = 1024;
+    /// Number of bytes in one Nibibyte (MiB).
+    const BYTES_IN_ONE_MIBIBYTE: u64 = Byte::BYTES_IN_ONE_KIBIBYTE * 1024;
+    /// Number of bytes in one Gibibyte (GiB).
+    const BYTES_IN_ONE_GIBIBYTE: u64 = Byte::BYTES_IN_ONE_MIBIBYTE * 1024;
+    /// Number of bytes in one Tebibyte (TiB).
+    const BYTES_IN_ONE_TEBIBYTE: u64 = Byte::BYTES_IN_ONE_GIBIBYTE * 1024;
+
+    /// Get the string representation for the represented value.
+    ///
+    /// The value will use the correct SI-unit abbreviation to display the value. See more on
+    /// that topic on <https://en.wikipedia.org/wiki/Byte#Multiple-byte_units>.
+    ///
+    /// # Panics
+    /// Will panic if the represented value is larger than 1.099.511.627.775 (Tibibyte).
+    ///
+    /// # Examples
+    /// ```rust
+    /// use memory_size_type::Byte;
+    /// let some_value = Byte::from(8*1024);
+    ///
+    /// assert_eq!(some_value.to_string(), "8 KiB");
+    /// ```
+    fn get_string_representation(&self) -> String {
+        // if it's less than a kibibyte, return the bytes
+        if self.bytes < Byte::BYTES_IN_ONE_KIBIBYTE {
+            return format!("{} B", self.bytes);
+        }
+
+        // if it's less than a mibibyte, return it as kibibyte
+        if self.bytes < Bytes::BYTES_IN_ONE_MIBIBYTE {
+            let bytes_to_display = self.bytes / Byte::BYTES_IN_ONE_KIBIBYTE;
+            return format!("{} KiB", bytes_to_display);
+        }
+
+        // if it's less than a gibibyte, return it as mibibyte
+        if self.bytes < Bytes::BYTES_IN_ONE_GIBIBYTE {
+            let bytes_to_display = self.bytes / Byte::BYTES_IN_ONE_MIBIBYTE;
+            return format!("{} MiB", bytes_to_display);
+        }
+
+        // if it's less than a tebibyte, return it as gibibyte
+        if self.bytes < Byte::BYTES_IN_ONE_TEBIBYTE {
+            let bytes_to_display = self.bytes / Byte::BYTES_IN_ONE_GIBIBYTE;
+            return format!("{} GiB", bytes_to_display);
+        }
+
+        // if we reach this step, we have to panic since it's not supported yet
+        panic!("Values larger than 1.099.511.627.775 bytes are currently not supported");
+    }
+}
 
 /// The structure for representing a specific number of bytes.
 pub type Bytes = Byte;
 
+impl From<u64> for Byte {
+    fn from(value: u64) -> Self {
+        Byte { bytes: value }
+    }
+}
+
 #[cfg(feature = "std")]
 impl std::fmt::Display for Byte {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{} B", self.0)
+        write!(f, "{}", self.get_string_representation())
     }
 }
 
 #[cfg(feature = "std")]
 impl std::fmt::Debug for Byte {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{} B", self.0)
+        write!(f, "{}", self.get_string_representation())
     }
 }
 
@@ -37,9 +101,9 @@ mod tests {
     #[test]
     #[cfg(feature = "std")]
     fn printing_bytes_works_correctly() {
-        let bytes_lower_limit = Byte(0);
-        let bytes_middle = Byte(512);
-        let bytes_upper_limit = Byte(1023);
+        let bytes_lower_limit = Byte::from(0);
+        let bytes_middle = Byte::from(512);
+        let bytes_upper_limit = Byte::from(1023);
 
         assert_eq!(bytes_lower_limit.to_string(), "0 B");
         assert_eq!(bytes_middle.to_string(), "512 B");
@@ -49,9 +113,9 @@ mod tests {
     #[test]
     #[cfg(feature = "std")]
     fn printing_kibibytes_works_correctly() {
-        let kbytes_lower_limit = Byte(1024);
-        let kbytes_middle = Byte(524288);
-        let kbytes_upper_limit = Byte(1048575);
+        let kbytes_lower_limit = Byte::from(1024);
+        let kbytes_middle = Byte::from(524288);
+        let kbytes_upper_limit = Byte::from(1048575);
 
         assert_eq!(kbytes_lower_limit.to_string(), "1 KiB");
         assert_eq!(kbytes_middle.to_string(), "512 KiB");
@@ -61,9 +125,9 @@ mod tests {
     #[test]
     #[cfg(feature = "std")]
     fn printing_mebibytes_works_correctly() {
-        let mbytes_lower_limit = Byte(1048576);
-        let mbytes_middle = Byte(536870912);
-        let mbytes_upper_limit = Byte(1073741823);
+        let mbytes_lower_limit = Byte::from(1048576);
+        let mbytes_middle = Byte::from(536870912);
+        let mbytes_upper_limit = Byte::from(1073741823);
 
         assert_eq!(mbytes_lower_limit.to_string(), "1 MiB");
         assert_eq!(mbytes_middle.to_string(), "512 MiB");
@@ -73,9 +137,9 @@ mod tests {
     #[test]
     #[cfg(feature = "std")]
     fn printing_gibibytes_works_correctly() {
-        let gbytes_lower_limit = Byte(1073741824);
-        let gbytes_middle = Byte(549755813888);
-        let gbytes_upper_limit = Byte(1099511627775);
+        let gbytes_lower_limit = Byte::from(1073741824);
+        let gbytes_middle = Byte::from(549755813888);
+        let gbytes_upper_limit = Byte::from(1099511627775);
 
         assert_eq!(gbytes_lower_limit.to_string(), "1 GiB");
         assert_eq!(gbytes_middle.to_string(), "512 GiB");
