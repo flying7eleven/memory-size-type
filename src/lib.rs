@@ -19,14 +19,14 @@ pub type Bytes = Byte;
 #[cfg(feature = "std")]
 impl std::fmt::Display for Byte {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{} byte(s)", self.0)
+        write!(f, "{} B", self.0)
     }
 }
 
 #[cfg(feature = "std")]
 impl std::fmt::Debug for Byte {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{} byte(s)", self.0)
+        write!(f, "{} B", self.0)
     }
 }
 
@@ -41,9 +41,9 @@ mod tests {
         let bytes_middle = Byte(512);
         let bytes_upper_limit = Byte(1023);
 
-        assert_eq!(bytes_lower_limit.to_string(), "0 byte(s)");
-        assert_eq!(bytes_middle.to_string(), "512 byte(s)");
-        assert_eq!(bytes_upper_limit.to_string(), "1023 byte(s)");
+        assert_eq!(bytes_lower_limit.to_string(), "0 B");
+        assert_eq!(bytes_middle.to_string(), "512 B");
+        assert_eq!(bytes_upper_limit.to_string(), "1023 B");
     }
 
     #[test]
@@ -53,9 +53,9 @@ mod tests {
         let kbytes_middle = Byte(524288);
         let kbytes_upper_limit = Byte(1048575);
 
-        assert_eq!(kbytes_lower_limit.to_string(), "1 kibibyte(s)");
-        assert_eq!(kbytes_middle.to_string(), "512 kibibyte(s)");
-        assert_eq!(kbytes_upper_limit.to_string(), "1023 kibibyte(s)");
+        assert_eq!(kbytes_lower_limit.to_string(), "1 KiB");
+        assert_eq!(kbytes_middle.to_string(), "512 KiB");
+        assert_eq!(kbytes_upper_limit.to_string(), "1023 KiB");
     }
 
     #[test]
@@ -65,9 +65,9 @@ mod tests {
         let mbytes_middle = Byte(536870912);
         let mbytes_upper_limit = Byte(1073741823);
 
-        assert_eq!(mbytes_lower_limit.to_string(), "1 mebibyte(s)");
-        assert_eq!(mbytes_middle.to_string(), "512 mebibyte(s)");
-        assert_eq!(mbytes_upper_limit.to_string(), "1023 mebibyte(s)");
+        assert_eq!(mbytes_lower_limit.to_string(), "1 MiB");
+        assert_eq!(mbytes_middle.to_string(), "512 MiB");
+        assert_eq!(mbytes_upper_limit.to_string(), "1023 MiB");
     }
 
     #[test]
@@ -77,8 +77,8 @@ mod tests {
         let gbytes_middle = Byte(549755813888);
         let gbytes_upper_limit = Byte(1099511627775);
 
-        assert_eq!(gbytes_lower_limit.to_string(), "1 gibibyte(s)");
-        assert_eq!(gbytes_middle.to_string(), "512 gibibyte(s)");
-        assert_eq!(gbytes_upper_limit.to_string(), "1023 gibibyte(s)");
+        assert_eq!(gbytes_lower_limit.to_string(), "1 GiB");
+        assert_eq!(gbytes_middle.to_string(), "512 GiB");
+        assert_eq!(gbytes_upper_limit.to_string(), "1023 GiB");
     }
 }
